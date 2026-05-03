@@ -7,8 +7,8 @@ export default function Header() {
       <header className={styles.header}>
         <div>THE SHOP</div>
           <nav className={styles.nav}>
-            <Link className={styles.link}>HOME</Link>
-            <Link className={styles.link}>SHOP</Link>
+            <Link className={styles.link} to={"/"}>HOME</Link>
+            <Link className={styles.link} to={"./shop"}>SHOP</Link>
             <Link className={styles.link}>CONTACTS</Link>
           </nav>
       </header>
