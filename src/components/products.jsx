@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import styles from "../css/cards.module.css";
 
 export default function Prod() {
   const [products, setProducts] = useState([]);
@@ -8,19 +9,18 @@ export default function Prod() {
       .then((data) => setProducts(data));
   }, []);
   const prodList = products.map((product) => (
-    <li key={product.id}>
-      <p>
-        Id: {product.id} <br /> Title: {product.title}
-        <br />
-        Price: £{product.price}
-        <br />
-        Description: {product.description}
-        <br />
-        Category: {product.description}
-        <br />
-        Image: {product.image}
-      </p>
-    </li>
+    <section className={styles.mainSection}>
+      <div key={product.id} className={styles.card}>
+        <img
+          src={product.image}
+          alt="product image"
+          className={styles.image}
+        ></img>
+        <span> <b>Price: £{product.price}</b></span>
+        <p>Description: {product.description}</p>
+        <p>Category: {product.category}</p>
+      </div>
+    </section>
   ));
-  return <ul>{prodList}</ul>;
+  return <div>{prodList}</div>;
 }

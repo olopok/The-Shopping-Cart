@@ -9,8 +9,9 @@ export default function Header() {
           <nav className={styles.nav}>
             <Link className={styles.link} to={"/"}>HOME</Link>
             <Link className={styles.link} to={"./shop"}>SHOP</Link>
-            <Link className={styles.link}>CONTACTS</Link>
-          </nav>
+            <Link className={styles.link} to={"/contacts"}>CONTACTS</Link>
+        </nav>
+        <div><Link className={styles.link}>Cart</Link></div>
       </header>
     </>
   );
