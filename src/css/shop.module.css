@@ -1,8 +1,5 @@
-.mainContent{
-    background-color: antiquewhite;
-      display: flex;
-  /* grid-template-columns: auto;
-  grid-template-rows: auto; */
+.mainContent {
+  background-color: antiquewhite;
+  display: flex;
   place-content: center;
-
 }

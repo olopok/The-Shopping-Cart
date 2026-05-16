@@ -11,16 +11,26 @@ export default function Prod() {
   const prodList = products.map((product) => (
     <section className={styles.mainSection}>
       <div key={product.id} className={styles.card}>
-        <img
-          src={product.image}
-          alt="product image"
-          className={styles.image}
-        ></img>
-        <span> <b>Price: £{product.price}</b></span>
-        <p>Description: {product.description}</p>
-        <p>Category: {product.category}</p>
+        <div className={styles.imageWrapper}>
+          <img
+            src={product.image}
+            alt="product image"
+            className={styles.image}
+          ></img>
+        </div>
+        <span>
+          {" "}
+          <b>Price: £{product.price}</b>
+        </span>
+        <p className={styles.textDescription}>
+          <b>Description:</b> <br />
+          {product.description}
+        </p>
+        <p>
+          <b>Category:</b> {product.category}
+        </p>
       </div>
     </section>
   ));
-  return <div>{prodList}</div>;
+  return <div className={styles.cardsContainer}>{prodList}</div>;
 }
