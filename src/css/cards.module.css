@@ -46,3 +46,33 @@
   line-clamp: 4;
   -webkit-line-clamp: 4;
 }
+
+.itemsNumber {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+button {
+  background-color: darkgoldenrod;
+  border: 1px solid goldenrod;
+}
+
+#decrement{
+  margin-left: 0.5rem;
+}
+
+#decrement, #increment {
+  width: 20px;
+}
+
+input {
+  width: 25%;
+  text-align: right;
+}
+
+#addToChart {
+  margin-top: 1rem;
+  border-radius: 10px;
+  padding: 0.5em;
+}
