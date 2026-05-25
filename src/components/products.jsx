@@ -1,20 +1,47 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import styles from "../css/cards.module.css";
 
 export default function Prod() {
   const [products, setProducts] = useState([]);
-  const [quantity, setQuantity] = useState(1);
 
   function itemsQuantity(product, quantity) {
     const newProduct = { ...product, quantity };
     return newProduct;
   }
 
+  function handleOnChange(e, id) {
+    const updatedProducts = products.map((p) =>
+      p.id === id ? { ...p, quantity: e.target.value } : p,
+    );
+    setProducts(updatedProducts);
+  }
+
+  function handleOnClick(e, id) {
+    const string = e.target.name;
+
+    products.map((p) => {
+      if (p.id === id && string === "increment") {
+        p.quantity++;
+        const inputField = e.target.previousElementSibling;
+        inputField.value = p.quantity;
+      } else if (p.id === id && string === "decrement") {
+        if (p.quantity <= 1) {
+          p.quantity = 1;
+        } else {
+          p.quantity--;
+          const inputField = e.target.nextElementSibling;
+          inputField.value = p.quantity;
+        }
+      } else return p;
+    });
+    console.log(products);
+  }
+
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
       .then((response) => response.json())
-      .then((data) => setProducts(data.map((p) => itemsQuantity(p, quantity))));
-  }, [quantity]);
+      .then((data) => setProducts(data.map((p) => itemsQuantity(p, 1))));
+  }, []);
 
   const prodList = products.map((product) => (
     <section key={product.id} className={styles.mainSection}>
@@ -39,15 +66,31 @@ export default function Prod() {
         </p>
         <div className={styles.itemsNumber}>
           <b>Quantity:</b>
-          <button id={styles.decrement}>-</button>
-          <input type="text" defaultValue={product.quantity} />
-          <button id={styles.increment}>+</button>
+          <button
+            id={styles.decrement}
+            name="decrement"
+            onClick={(e) => handleOnClick(e, product.id)}
+          >
+            -
+          </button>
+          <input
+            type="text"
+            name="numberItems"
+            value={product.quantity}
+            onChange={(e) => handleOnChange(e, product.id)}
+          />
+          <button
+            id={styles.increment}
+            name="increment"
+            onClick={(e) => handleOnClick(e, product.id)}
+          >
+            +
+          </button>
         </div>
         <button id={styles.addToChart}>Add to chart</button>
       </div>
     </section>
   ));
-  console.log(products);
 
   return <div className={styles.cardsContainer}>{prodList}</div>;
 }

@@ -58,12 +58,18 @@ button {
   border: 1px solid goldenrod;
 }
 
-#decrement{
+button:hover {
+  background-color: chocolate;
+}
+
+#decrement {
   margin-left: 0.5rem;
 }
 
-#decrement, #increment {
+#decrement,
+#increment {
   width: 20px;
+  border-radius: 2px;
 }
 
 input {
