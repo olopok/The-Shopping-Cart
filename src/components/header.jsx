@@ -6,12 +6,22 @@ export default function Header() {
     <>
       <header className={styles.header}>
         <div className={styles.shopName}>THE SHOP</div>
-          <nav className={styles.nav}>
-            <Link className={styles.link} to={"/"}>HOME</Link>
-            <Link className={styles.link} to={"./shop"}>SHOP</Link>
-            <Link className={styles.link} to={"/contacts"}>CONTACTS</Link>
+        <nav className={styles.nav}>
+          <Link className={styles.link} to={"/"}>
+            HOME
+          </Link>
+          <Link className={styles.link} to={"./shop"}>
+            SHOP
+          </Link>
+          <Link className={styles.link} to={"/contacts"}>
+            CONTACTS
+          </Link>
         </nav>
-        <div className={styles.cartLink}><Link className={styles.link}>CART</Link></div>
+        <div className={styles.cartLink}>
+          <Link className={styles.link} to={"/chart"}>
+            CART
+          </Link>
+        </div>
       </header>
     </>
   );

@@ -4,8 +4,8 @@ import styles from "../css/cards.module.css";
 export default function Prod() {
   const [products, setProducts] = useState([]);
 
-  function itemsQuantity(product, quantity) {
-    const newProduct = { ...product, quantity };
+  function addProperty(product, quantity, added) {
+    const newProduct = { ...product, quantity, added };
     return newProduct;
   }
 
@@ -18,18 +18,19 @@ export default function Prod() {
 
   function handleOnClick(e, id) {
     const string = e.target.name;
+    let inputField;
 
     products.map((p) => {
       if (p.id === id && string === "increment") {
         p.quantity++;
-        const inputField = e.target.previousElementSibling;
+        inputField = e.target.previousElementSibling;
         inputField.value = p.quantity;
       } else if (p.id === id && string === "decrement") {
         if (p.quantity <= 1) {
           p.quantity = 1;
         } else {
           p.quantity--;
-          const inputField = e.target.nextElementSibling;
+          inputField = e.target.nextElementSibling;
           inputField.value = p.quantity;
         }
       } else return p;
@@ -40,7 +41,7 @@ export default function Prod() {
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
       .then((response) => response.json())
-      .then((data) => setProducts(data.map((p) => itemsQuantity(p, 1))));
+      .then((data) => setProducts(data.map((p) => addProperty(p, 1, false))));
   }, []);
 
   const prodList = products.map((product) => (
