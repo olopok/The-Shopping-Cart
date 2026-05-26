@@ -33,6 +33,8 @@ export default function Prod() {
           inputField = e.target.nextElementSibling;
           inputField.value = p.quantity;
         }
+      } else if (p.id === id && string === "addToChart") {
+        p.added = true;
       } else return p;
     });
     console.log(products);
@@ -88,7 +90,13 @@ export default function Prod() {
             +
           </button>
         </div>
-        <button id={styles.addToChart}>Add to chart</button>
+        <button
+          id={styles.addToChart}
+          name="addToChart"
+          onClick={(e) => handleOnClick(e, product.id)}
+        >
+          Add to chart
+        </button>
       </div>
     </section>
   ));
