@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
 import styles from "../css/cards.module.css";
 
+export function chartList(items) {
+  const list = items.filter(items.added === true);
+  return list;
+}
+
 export default function Prod() {
   const [products, setProducts] = useState([]);
 
