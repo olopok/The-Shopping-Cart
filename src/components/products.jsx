@@ -1,55 +1,57 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import styles from "../css/cards.module.css";
 
-export function chartList(items) {
-  const list = items.filter(items.added === true);
-  return list;
+export function ChartList(items = []) {
+  return items.filter((item) => item.added === true);
 }
 
-export default function Prod() {
-  const [products, setProducts] = useState([]);
-
+export default function Prod({ products, setProducts }) {
   function addProperty(product, quantity, added) {
     const newProduct = { ...product, quantity, added };
     return newProduct;
   }
 
   function handleOnChange(e, id) {
-    const updatedProducts = products.map((p) =>
-      p.id === id ? { ...p, quantity: e.target.value } : p,
+    const value = Number(e.target.value) || 1;
+
+    setProducts((prevProducts) =>
+      prevProducts.map((p) =>
+        p.id === id ? { ...p, quantity: Math.max(1, value) } : p,
+      ),
     );
-    setProducts(updatedProducts);
   }
 
   function handleOnClick(e, id) {
-    const string = e.target.name;
-    let inputField;
+    const action = e.target.name;
 
-    products.map((p) => {
-      if (p.id === id && string === "increment") {
-        p.quantity++;
-        inputField = e.target.previousElementSibling;
-        inputField.value = p.quantity;
-      } else if (p.id === id && string === "decrement") {
-        if (p.quantity <= 1) {
-          p.quantity = 1;
-        } else {
-          p.quantity--;
-          inputField = e.target.nextElementSibling;
-          inputField.value = p.quantity;
+    setProducts((prevProducts) =>
+      prevProducts.map((p) => {
+        if (p.id !== id) return p;
+
+        if (action === "increment") {
+          return { ...p, quantity: p.quantity + 1 };
         }
-      } else if (p.id === id && string === "addToChart") {
-        p.added = true;
-      } else return p;
-    });
-    console.log(products);
+
+        if (action === "decrement") {
+          return { ...p, quantity: Math.max(1, p.quantity - 1) };
+        }
+
+        if (action === "addToChart") {
+          return { ...p, added: true };
+        }
+
+        return p;
+      }),
+    );
   }
 
   useEffect(() => {
+    if (products.length > 0) return;
+
     fetch("https://fakestoreapi.com/products")
       .then((response) => response.json())
       .then((data) => setProducts(data.map((p) => addProperty(p, 1, false))));
-  }, []);
+  }, [products.length, setProducts]);
 
   const prodList = products.map((product) => (
     <section key={product.id} className={styles.mainSection}>
